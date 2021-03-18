@@ -1,0 +1,20 @@
+<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+
+<ul *ngIf="dataLoaded==true" class="list-group">
+  <li [class]="getAllBrandClass()" class="list-group-item " routerLink="/cars"><h6> Tüm Markalar</h6></li>
+    <h5 style="color:orchid;">MARKALAR</h5>
+    <li (click)="setCurrentBrand(brand)"
+      routerLink= "/cars/brand/{{brand.brandId}}"
+     *ngFor = "let brand of brands" [class]="getCurrentBrandClass(brand)">
+        <td><b>{{brand.brandName}}</b>
+          
+        </td>
+
+    </li>
+   
+  </ul>
+
+  <h5 *ngIf="currentBrand">{{currentBrand.brandName}} seçtiniz</h5>

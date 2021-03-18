@@ -1,0 +1,14 @@
+<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<ul *ngIf="dataLoaded==true" class="list-group">
+    <h5 style="color: peru;">RENKLER</h5>
+    <li (click)="setCurrentColor(color)"
+    routerLink="cars/color/{{color.colorId}}"
+    
+    *ngFor="let color of colors" class="list-group-item">
+          <b>{{color.colorName}}</b>  
+    </li>
+    
+  </ul>

@@ -1,0 +1,87 @@
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Findeks Hesaplama</h5>
+              <Form [formGroup]="userFindeksForm">
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label>Tc Kimlik Numaranız</label>
+                    <input  class="form-control" type="text" formControlName="tc">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label>Doğum Yılınız</label>
+                    <input class="form-control" type="text" formControlName="dateYear">
+                  </div>
+                </div>
+                <button class="btn btn-primary" (click)="getUserFindeks()">Puanımı Hesapla</button>
+              </Form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        
+        <div class="col-md-8" >
+            <img [src]="images[0]?.imagePath"  alt="First slide">
+        </div>
+
+        <button class="carousel-control-prev" data-bs-target="#indicators" data-bs-slide="prev">
+          <span class="bi-arrow-left" style="font-size: 25px;"></span>
+       </button>
+       <button class="carousel-control-next" data-bs-target="#indicators" data-bs-slide="next">
+          <span class="bi-arrow-right" style="font-size: 25px;"></span>
+       </button>
+
+        <div class="card-body">
+         <ul class="list-group list-group-flush">
+           <li class="list-group-item">
+             <b style="font-size: xx-large"> Details</b>
+           </li>
+           <tr *ngFor="let car of cars">
+             <li class="list-group-item">Car Id : {{car.id}}</li>
+              <li class="list-group-item">Brand Name : {{car.brandName}}</li>
+              <li class="list-group-item">Color Name : {{car.colorName}}</li>
+              <li class="list-group-item">Model Year : {{car.modelYear}}</li>
+               <li class="list-group-item">Daily Price : {{car.dailyPrice}}</li>
+              <li class="list-group-item">Model : {{car.description}}</li>
+              <td><button 
+                routerLink="/cars/payment/{{car.id}}" (click)="getCarByCarId(car.id)"
+                type="button" class="btn btn-success">Kirala</button></td>          
+            </tr>   
+         </ul>      
+                              
+         
+        </div>
+      </div>
+     
+
+    </div>
+  </div>
+
+
+
+
+
+
+ 
+

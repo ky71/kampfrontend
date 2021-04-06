@@ -12,6 +12,9 @@ import { TokenModel } from '../models/tokenModel';
 })
 export class AuthService {
 
+  role:any;
+  roles: any[] = [];
+
   apiUrl = environment.apiUrl
 
   constructor(private httpClient:HttpClient) { }

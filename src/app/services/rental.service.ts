@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { FakeCreditCard } from '../models/fakeCreditCard';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Rental } from '../models/rental';
-import { RentDetail } from '../models/rentalDetail';
+import { RentalDetail } from '../models/rentalDetail';
 import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<Rental>>(this.apiUrl+'rentals/detailsbycar?id='+id);
   }
 
-  addRental(rental: RentDetail, fakeCreditCard: FakeCreditCard): Observable<ResponseModel> {
+  addRental(rental: RentalDetail, fakeCreditCard: FakeCreditCard): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>
     (this.apiUrl + 'rentals/paymentadd',
       {

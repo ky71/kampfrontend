@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { FakeCreditCard } from 'src/app/models/fakeCreditCard';
-import { RentDetail } from 'src/app/models/rentalDetail';
+import { RentalDetail} from 'src/app/models/rentalDetail';
 import { CarService } from 'src/app/services/car.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RentalService } from 'src/app/services/rental.service';
@@ -16,25 +16,22 @@ import { RentalService } from 'src/app/services/rental.service';
 })
 export class PaymentComponent implements OnInit {
 
-  rental: RentDetail = new RentDetail();
+  rental: RentalDetail = new RentalDetail();
   fakeCreditCard: FakeCreditCard = new FakeCreditCard();
   rentalForm: FormGroup;
-  cars:Car[] =[];
 
   constructor(private activatedRoute: ActivatedRoute,
-    private rentalService: RentalService,
-    private toastrService: ToastrService,
-    private formBuilder: FormBuilder,
-    private localStorageService:LocalStorageService,
-    private carService:CarService) { }
+              private rentalService: RentalService,
+              private toastrService: ToastrService,
+              private formBuilder: FormBuilder,
+              private localStorageService:LocalStorageService) {
+  }
 
   ngOnInit(): void {
     this.createForm();
-    
     this.activatedRoute.params.subscribe(params => {
       if (params['myrental']) {
         this.rental = JSON.parse(params['myrental']);
-        this.getCarDetail(params["carId"])
       }
     });
 
@@ -63,7 +60,7 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  addRental(rental: RentDetail, fakeCreditCard: FakeCreditCard) {
+  addRental(rental: RentalDetail, fakeCreditCard: FakeCreditCard) {
      this.rentalService.addRental(rental, fakeCreditCard).subscribe(response => {
        this.toastrService.success('Araç kiralandı');
      });
@@ -84,13 +81,6 @@ export class PaymentComponent implements OnInit {
      this.localStorageService.get('ExpirationYear');
      this.localStorageService.get('ExpirationMonth');
      this.localStorageService.get('Cvv');
-  }
-
-  getCarDetail(carId:number){
-    this.carService.getCarByCarId(carId).subscribe(response=>{
-     this.cars=response.data
-    })
-     
   }
 
 

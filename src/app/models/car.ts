@@ -9,6 +9,6 @@ export interface Car{
     brandName:string;
     imagePath:string;
     date:Date;
-    minFindexScore?:number;
+    findeksScore:number;
 }
 

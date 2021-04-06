@@ -27,15 +27,15 @@ import {faLiraSign} from '@fortawesome/free-solid-svg-icons';
 })
 export class CarimageComponent implements OnInit {
   //RentAl formu
-  customers: Customer[] = [];
-  customerId: Number;
-  customerName: string;
-  companyName: string;
-  customerEmail: string;
-  rentDate!: Date;
-  returnDate!: Date;
-  carDailyPrice: number;
-  amountPay: number = 0;
+  // customers: Customer[] = [];
+  // customerId: Number;
+  // customerName: string;
+  // companyName: string;
+  // customerEmail: string;
+  // rentDate!: Date;
+  // returnDate!: Date;
+  // carDailyPrice: number;
+  // amountPay: number = 0;
   //!RentAl formu
 
   carDetails:Car[];
@@ -46,9 +46,9 @@ export class CarimageComponent implements OnInit {
   findeks:number;
   carFindeks:number
   
-  carId: number;
-  carBrandName: string;
-  carModelName: string;
+  // carId: number;
+  // carBrandName: string;
+  // carModelName: string;
   
   
   
@@ -82,12 +82,15 @@ export class CarimageComponent implements OnInit {
         
         
       }
-    })
+    });
+    this.createUserFindeksForm();
   }
 
   getCarDetail(carId:number){
     this.carService.getCarByCarId(carId).subscribe(response=>{
      this.cars=response.data
+     this.carFindeks = this.cars[0].findeksScore;
+
     })
      
   }
@@ -169,9 +172,7 @@ getUserFindeks() {
 
 
 
-//  isAuthenticate(): boolean {
-//     return this.authService.isAuthenticated();
-//  }
+
   
 
 

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http' //bunu http istekleri yapabilmek için yazmamız gerekiyor
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http' //bunu http istekleri yapabilmek için yazmamız gerekiyor
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +31,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CarAddComponent } from './components/car/car-add/car-add.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { FooterComponent } from './footer/footer.component';
+import { CarUpdateComponent } from './components/car/car-update/car-update.component';
+
 
 
 
@@ -54,6 +60,10 @@ import { CarAddComponent } from './components/car/car-add/car-add.component';
     ProfileComponent,
     PaymentComponent,
     CarAddComponent,
+    LoginComponent,
+    FooterComponent,
+    CarUpdateComponent,
+    
     
   ],
   imports: [
@@ -62,6 +72,7 @@ import { CarAddComponent } from './components/car/car-add/car-add.component';
     HttpClientModule,    //bunuda ekledik
     BrowserAnimationsModule,
     FormsModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     
     NgbModule,
@@ -72,7 +83,9 @@ import { CarAddComponent } from './components/car/car-add/car-add.component';
       
     })
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

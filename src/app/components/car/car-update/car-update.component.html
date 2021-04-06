@@ -1,247 +1,74 @@
-<div *ngIf="isUpdate" class="card mb-3 mt-3">
-    <div class="card-header">
-      <h5 class="cad-title">Car Update</h5>
+<div class="row mt-4">
+    <div class="col-lg-9">
+ 
+       <div class="card rounded-0">
+          <div class="card-header fw-bold">
+             <i class="bi-save me-1"></i> Araba Güncelle
+          </div>
+          <div class="card-body">
+             <form autocomplete="off"  [formGroup]="carUpdateForm" (ngSubmit)="update()">
+ 
+                <div class="form-floating mb-3">
+                   <select class="form-select" id="brands" formControlName="brandId">
+                      <option value="">-- Marka Seçiniz --</option>
+ 
+                      <option *ngFor="let brand of brands" [value]="brand.brandId">
+                         {{ brand.brandName }}
+                      </option>
+                   </select>
+                   <label for="brands">Markalar</label>
+                </div>
+ 
+                <div class="form-floating mb-3">
+                   <select class="form-select" id="colors" formControlName="colorId">
+                      <option value="">-- Renk Seçiniz --</option>
+ 
+                      <option *ngFor="let color of colors" [value]="color.colorId">
+                         {{ color.colorName }}
+                      </option>
+                   </select>
+                   <label for="colors">Renkler</label>
+                </div>
+ 
+                <div class="form-floating mb-3">
+                   <input type="text" class="form-control" id="description" placeholder="description"
+                          formControlName="description">
+                   <label for="description">Model Adı / Açıklama</label>
+                </div>
+ 
+                <div class="form-floating mb-3">
+                   <input type="text" class="form-control" id="modelYear" placeholder="modelYear"
+                          formControlName="modelYear">
+                   <label for="modelYear">Model Yılı</label>
+                </div>
+ 
+                <div class="form-floating mb-3">
+                   <input type="text" class="form-control" id="dailyPrice" placeholder="dailyPrice"
+                          formControlName="dailyPrice">
+                   <label for="dailyPrice">Günlük Ücret - ₺</label>
+                </div>
+ 
+                <div class="form-floating mb-3">
+                   <input type="number" class="form-control" id="findexPoint" placeholder="findexPoint"
+                          formControlName="findexPoint">
+                   <label for="findexPoint">Findeks Puanı</label>
+                </div>
+ 
+                <div class="text-end">
+                   <button type="submit" class="btn btn-primary">
+                      <i class="bi-save2 me-1"></i> Güncelle
+                   </button>
+                </div>
+             </form>
+          </div>
+       </div>
+ 
     </div>
-    <div class="card-body">
-      <form [formGroup]="carUpdateForm">
-        <label for="brandId" class="form-group">Brand Id</label>
-        <div class="form-group">
-          <input
-            id="brandId"
-            type="text"
-            formControlName="brandId"
-            class="form-control"
-          />
-        </div>
-        <label for="colorId" class="form-group">Color Id</label>
-        <div class="form-group">
-          <input
-            id="colorId"
-            type="text"
-            formControlName="colorId"
-            class="form-control"
-          />
-        </div>
-        
-        <label for="modelYear" class="form-group">Year</label>
-        <div class="form-group">
-          <input
-            id="modelYear"
-            type="text"
-            formControlName="modelYear"
-            class="form-control"
-          />
-        </div>
-        <label for="dailyPrice" class="form-group">Daily price</label>
-        <div class="form-group">
-          <input
-            id="dailyPrice"
-            type="text"
-            formControlName="dailyPrice"
-            class="form-control"
-          />
-        </div>
-        <label for="description" class="form-group">Explanation</label>
-        <div class="form-group">
-          <input
-            id="description"
-            type="text"
-            formControlName="description"
-            class="form-control"
-          />
-        </div>
-        <div class="d-grid gap-2 mb-3 mt-3">
-          <button (click)="update()" type="button" class="btn btn-success">
-            Update
+    <div class="col-lg-3">
+       <div class="d-grid">
+          <button class="btn btn-primary" routerLink="/cars">
+             <i class="bi-list me-1"></i> Arabaları Listele
           </button>
-        </div>
-      </form>
+       </div>
     </div>
-  </div>
-  
-  <div *ngIf="!car && cars" class="card mb-3 mt-3">
-    <div class="card-header">
-      <h4 class="card-title">Cars</h4>
-    </div>
-    <div class="card-body">
-      <table class="table table-light table-striped">
-        <thead>
-          <tr>
-            <th class="text-muted">Brand Id</th>
-            <th class="text-muted">Color Id</th>
-           
-            <th class="text-muted">Year</th>
-            <th class="text-muted">Price</th>
-            <th class="text-muted">Explanation</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let car of cars">
-            <td>{{ car.brandId }}</td>
-            <td>{{ car.colorId }}</td>
-           
-            <td>{{ car.modelYear }}</td>
-            <td>{{ car.dailyPrice }} ₺</td>
-            <td>{{ car.description }}</td>
-            <td>
-              <button
-                (click)="checkUpdate(car)"
-                type="button"
-                class="btn btn-success"
-              >
-                Update
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
-  <div *ngIf="car && brands" class="card mb-3 mt-3">
-    <div class="card-header">
-      <h4 class="card-title">Brands</h4>
-    </div>
-    <div class="card-body">
-      <table class="table table-light table-striped">
-        <thead>
-          <tr>
-            <th class="text-muted">Id</th>
-            <th class="text-muted">Brand</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let brand of brands">
-            <td>{{ brand.brandId }}</td>
-            <td>{{ brand.brandName }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
-  <div *ngIf="car && colors" class="card mb-3 mt-3">
-    <div class="card-header">
-      <h4 class="card-title">Colors</h4>
-    </div>
-    <div class="card-body">
-      <table class="table table-light table-striped">
-        <thead>
-          <tr>
-            <th class="text-muted">Id</th>
-            <th class="text-muted">Color</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let color of colors">
-            <td>{{ color.colorId }}</td>
-            <td>{{ color.colorName }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
-  <div *ngIf="car" class="card mb-3 mt-3">
-    <div class="card-header">
-      <h4 class="card-title">Car to be Update</h4>
-    </div>
-    <div class="card-body">
-      <table class="table table-light table-striped">
-        <thead>
-          <tr>
-            <th class="text-muted">Brand Id</th>
-            <th class="text-muted">Color Id</th>
-            <th class="text-muted">Model</th>
-            <th class="text-muted">Year</th>
-            <th class="text-muted">Price</th>
-            <th class="text-muted">Explanation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ car.brandId }}</td>
-            <td>{{ car.colorId }}</td>
-            
-            <td>{{ car.modelYear }}</td>
-            <td>{{ car.dailyPrice }} ₺</td>
-            <td>{{ car.description }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
-  <div *ngIf="car" class="card mb-3 mt-3">
-    <div class="card-header">
-      <h4 class="card-title">Updating car</h4>
-    </div>
-    <div class="card-body">
-      <form [formGroup]="selectedCarUpdateForm">
-        <label for="brandId" class="form-group">Brand Id</label>
-        <div class="form-group">
-          <input
-            id="brandId"
-            type="text"
-            formControlName="brandId"
-            class="form-control"
-          />
-        </div>
-        <label for="colorId" class="form-group">Color Id</label>
-        <div class="form-group">
-          <input
-            id="colorId"
-            type="text"
-            formControlName="colorId"
-            class="form-control"
-          />
-        </div>
-        <label for="model" class="form-group">Model</label>
-        <div class="form-group">
-          <input
-            id="model"
-            type="text"
-            formControlName="model"
-            class="form-control"
-          />
-        </div>
-        <label for="modelYear" class="form-group">Year</label>
-        <div class="form-group">
-          <input
-            id="modelYear"
-            type="text"
-            formControlName="modelYear"
-            class="form-control"
-          />
-        </div>
-        <label for="dailyPrice" class="form-group">Price</label>
-        <div class="form-group">
-          <input
-            id="dailyPrice"
-            type="text"
-            formControlName="dailyPrice"
-            class="form-control"
-          />
-        </div>
-        <label for="description" class="form-group">Explanation</label>
-        <div class="form-group">
-          <input
-            id="description"
-            type="text"
-            formControlName="description"
-            class="form-control"
-          />
-        </div>
-        <div class="d-grid gap-2 mb-3 mt-3">
-          <button
-            (click)="selectedCarUpdate()"
-            type="button"
-            class="btn btn-success"
-          >
-            Update
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+ </div>

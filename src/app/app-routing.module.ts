@@ -18,7 +18,7 @@ import { LoginGuard } from './guards/login.guard';
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},
   {path:"cars",component:CarComponent},
-  {path:"cars/update",component:CarUpdateComponent},
+  {path:"cars/update/:carId",component:CarUpdateComponent},
 
 
   {path:"customers",component:CustomerComponent},

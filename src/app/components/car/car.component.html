@@ -39,6 +39,10 @@
     <td><button 
       routerLink="/cars/carDetails/{{car.id}}"
       (click)="getCarByCarId(car.id)" type="button" class="btn btn-success">Detaylar</button></td>
+      <td><button [routerLink]="'/cars/update/' + car.id"
+                     class="btn btn-primary px-4 float-end">
+                     Güncelle
+                  </button></td>
       <td><button (click)="addToCart(car)" type="button" class="btn btn-success">Sepete ekle</button></td>
   </tr>
 </tbody>

@@ -1,7 +1,20 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
+<div class="mb-3">
+  <label for="filterText" class="form-label">Araç ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="arama ifadesi giriniz">
+</div>
+<div *ngIf="filterText.length>2"  class="alert alert-danger">
+  {{filterText}} aradınız
+</div>
+
+
+<app-car-filter></app-car-filter>
+
+
 <h5 style="color: pink;">ARAÇLAR</h5> 
+
 <table *ngIf="dataLoaded==true" class="table">
   <thead>
     <tr>
@@ -10,16 +23,35 @@
       <th>Rengi</th>
       <th>Model Yılı</th>
       <th>Günlük Ücreti</th>
+      <th>KDV'li Fiyat</th>
       <th>Modeli</th>
     </tr>
   </thead>
-  <tr *ngFor="let car of cars">
+  <tbody>
+  <tr *ngFor="let car of cars | filterPipe:filterText">
     <td>{{ car.id }}</td>
-    <td>{{ car.brandName }}</td>
+    <td>{{ car.brandName |uppercase}}</td>
     <td>{{ car.colorName }}</td>
     <td>{{ car.modelYear }}</td>
-    <td>{{ car.dailyPrice }}</td>
+    <td>{{ car.dailyPrice |currency: "TRY":"TL":""}}</td>
+    <td>{{ car.dailyPrice |vatAdded:18 |currency: "TRY":"TL":""}}</td>
     <td>{{ car.description }}</td>
+    <td><button 
+      routerLink="/cars/carDetails/{{car.id}}"
+      (click)="getCarByCarId(car.id)" type="button" class="btn btn-success">Detaylar</button></td>
+      <td><button [routerLink]="'/cars/update/' + car.id"
+                     class="btn btn-primary px-4 float-end">
+                     Güncelle
+                  </button></td>
+      <td><button (click)="addToCart(car)" type="button" class="btn btn-success">Sepete ekle</button></td>
   </tr>
+</tbody>
 </table>
+
+
+<div class="card-footer">
+  <button routerLink="/cars/add" class="btn btn-primary"style="margin-right: 5px;">Araba Ekle</button>
+
+
+</div>
 

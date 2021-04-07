@@ -2,19 +2,28 @@
   <span class="visually-hidden">Loading...</span>
 </div>
 
+<div class="mb-3">
+  <label for="filterText" class="form-label">Marka Ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control"
+  placeholder="marka">
+</div>
+
 
 <ul *ngIf="dataLoaded==true" class="list-group">
-  <li [class]="getAllBrandClass()" class="list-group-item " routerLink="/cars"><h6> Tüm Markalar</h6></li>
+  <li [class]="getAllBrandClass()" class="list-group-item " routerLink="/cars"><h6> TÜM ARAÇLAR</h6></li>
     <h5 style="color:orchid;">MARKALAR</h5>
     <li (click)="setCurrentBrand(brand)"
       routerLink= "/cars/brand/{{brand.brandId}}"
-     *ngFor = "let brand of brands" [class]="getCurrentBrandClass(brand)">
+     *ngFor = "let brand of brands | brandPipe:filterText" [class]="getCurrentBrandClass(brand)">
         <td><b>{{brand.brandName}}</b>
           
         </td>
-
     </li>
+
+  
    
-  </ul>
+</ul>
+
+
 
   <h5 *ngIf="currentBrand">{{currentBrand.brandName}} seçtiniz</h5>
